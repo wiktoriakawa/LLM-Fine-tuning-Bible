@@ -19,3 +19,5 @@ qa_output.json
 # System
 .DS_Store
 Thumbs.db
+
+.env
