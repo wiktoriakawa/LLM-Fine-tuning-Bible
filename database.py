@@ -198,8 +198,8 @@ def save_qa(qa_list: list[dict], output_path: str) -> None:
 
 
 if __name__ == "__main__":
-    OUTPUT_FILE = "epistles_qa.txt"
-    PARTIAL_FILE = "epistles_qa_partial.json"
+    OUTPUT_FILE = "data/raw/epistles_qa.txt"
+    PARTIAL_FILE = "data/raw/epistles_qa_partial.json"
 
     client = Mistral(api_key=API_KEY, timeout_ms=180000)
 

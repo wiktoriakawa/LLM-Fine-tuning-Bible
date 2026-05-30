@@ -6,11 +6,14 @@ __pycache__/
 venv/
 env/
 
-# Output
-qa_output.json
-
-# Tekstowe datasety
+# Generated text datasets
 *.txt
+
+# Environment and local config
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
 
 # IDE
 .vscode/
@@ -19,5 +22,3 @@ qa_output.json
 # System
 .DS_Store
 Thumbs.db
-
-.env
