@@ -1,10 +1,13 @@
 import json
 import time
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 from mistralai.client import Mistral
 
-load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+ROOT = Path(__file__).resolve().parents[1]
+
+load_dotenv(ROOT / ".env")
 API_KEY = os.environ.get("MISTRAL_API_KEY")
 client = Mistral(api_key=API_KEY, timeout_ms=180000)
 
@@ -79,6 +82,7 @@ def evaluate_dataset(input_path: str, output_path: str):
 
         time.sleep(1)
 
+        # Zapis częściowy
         if (i + 1) % 10 == 0:
             with open(output_path, "w", encoding="utf-8") as f:
                 json.dump(results, f, ensure_ascii=False, indent=2)
@@ -86,6 +90,7 @@ def evaluate_dataset(input_path: str, output_path: str):
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
+    # Podsumowanie statystyk
     scored = [r for r in results if r["eval"]]
     metrics = ["biblical_accuracy", "relevance", "ethical_depth", "clarity", "overall"]
 
@@ -99,4 +104,7 @@ def evaluate_dataset(input_path: str, output_path: str):
 
 
 if __name__ == "__main__":
-    evaluate_dataset("ot_epistles_qa.json", "ot_epistles_qa_evaluated.json")
+    evaluate_dataset(
+        ROOT / "data" / "raw" / "epistles_qa.json",
+        ROOT / "data" / "evaluated" / "epistles_qa_evaluated.json",
+    )
